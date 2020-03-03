@@ -14,10 +14,9 @@ export class PlanetDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private affServ: PlanetsService) { }
 
   ngOnInit() {
-    this.route.paramMap.pipe(switchMap(params => {
-      const planetId = +params.get('id');
-      return this.affServ.getOnePl(planetId);
-    })).subscribe(id => {
+    this.route.paramMap.pipe(
+      switchMap(params => this.affServ.getOnePl(+params.get('id'))))
+      .subscribe(id => {
       console.log(id);
     });
   }
