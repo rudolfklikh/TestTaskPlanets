@@ -1,0 +1,4 @@
+<div *ngFor="let planet of planets" (click)="hello(planet)">
+      {{ planet.name }}
+      <a [routerLink]="['/planet', planet.url.split('/')[5] ]" routerLinkActive="router-link-active">Hello</a>
+</div>
