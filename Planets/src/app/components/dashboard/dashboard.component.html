@@ -1,4 +1,37 @@
-<div *ngFor="let planet of planets" (click)="hello(planet)">
-      {{ planet.name }}
-      <a [routerLink]="['/planet', planet.url.split('/')[5] ]" routerLinkActive="router-link-active">Hello</a>
+<input [formControl]="searchStr" type="search">
+<a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ search: searchStr.value }'>Find PLANETS</a>
+<a class="page-link" (click)="ff()" [routerLink]="['/dashboard']" >CANCEL</a>
+
+<div *ngFor="let planet of planets">
+  {{ planet.name }}
+  <a [routerLink]="['/planet', planet.url.split('/')[5] ]" routerLinkActive="router-link-active">Hello</a>
 </div>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination pagination-circle pg-red">
+    <li class="page-item">
+      <a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ page: 1 }' mdbWavesEffect>First</a>
+    </li>
+    <li *ngIf="currentPage !== 1" class="page-item">
+      <a class="page-link" [routerLink]="['/dashboard']"
+      [queryParams]='{ page: currentPage - 1  }'  aria-label="Previous" mdbWavesEffect>
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li [ngClass]="{'active': page.num === currentPage}" class="page-item" *ngFor="let page of pageCount">
+      <a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ page: page.num }'
+        routerLinkActive="router-link-active" mdbWavesEffect queryParamsHandling="merge">{{ page.num }}</a>
+    </li>
+    <li *ngIf="currentPage !== pageCount.length">
+      <a [routerLink]="['/dashboard']" [queryParams]='{ page: currentPage + 1 }' class="page-link" aria-label="Next" mdbWavesEffect>
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a [routerLink]="['/dashboard']" [queryParams]='{ page: pageCount.length }' class="page-link" mdbWavesEffect>Last</a>
+    </li>
+  </ul>
+</nav>

@@ -9,11 +9,11 @@ export class PlanetsService {
 
   constructor(private http: HttpClient) { }
 
-  getMainObject() {
-    return this.http.get('https://swapi.co/api/planets/');
+  getMainObject(page, searchStr) {
+    return this.http.get(`https://swapi.co/api/planets/?search=${searchStr}&page=${page}`);
   }
 
-  getOnePl(id: number) {
+  getDetail(id: number) {
     return this.http.get(`https://swapi.co/api/planets/${id}`);
   }
 

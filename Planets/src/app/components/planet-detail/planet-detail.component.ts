@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, tap } from 'rxjs/operators';
-import { PlanetsService } from 'src/app/shared/services/planets.service';
+import { switchMap } from 'rxjs/operators';
+import { PlanetsFacadeService } from 'src/app/shared/services/planets-facade.service';
 
 @Component({
   selector: 'app-planet-detail',
@@ -9,16 +9,12 @@ import { PlanetsService } from 'src/app/shared/services/planets.service';
   styleUrls: ['./planet-detail.component.scss']
 })
 export class PlanetDetailComponent implements OnInit {
-  id: number;
+  planet: any;
 
-  constructor(private route: ActivatedRoute, private affServ: PlanetsService) { }
+  constructor(private route: ActivatedRoute, private planetFacadeService: PlanetsFacadeService) { }
 
   ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap(params => this.affServ.getOnePl(+params.get('id'))))
-      .subscribe(id => {
-      console.log(id);
-    });
+    this.planet = this.route.paramMap.pipe(switchMap(params => this.planetFacadeService.getPlanetDetail(+params.get('id'))));
   }
 
 }

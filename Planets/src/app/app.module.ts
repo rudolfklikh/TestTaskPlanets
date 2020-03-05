@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlanetsService } from './shared/services/planets.service';
 import { PlanetDetailComponent } from './components/planet-detail/planet-detail.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { PlanetDetailComponent } from './components/planet-detail/planet-detail.
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [PlanetsService],
   bootstrap: [AppComponent]

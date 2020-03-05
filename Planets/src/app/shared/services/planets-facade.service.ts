@@ -12,9 +12,23 @@ export class PlanetsFacadeService {
 
 
 
-  getPlanets(): Observable<any> {
-    return this.planetsService.getMainObject().pipe(
-      map((planets: any) => planets.results)
+  getPlanets(page: number = 1, searcStr: string = ' '): Observable<any> {
+    return this.planetsService.getMainObject(page, searcStr).pipe(
+      map((planets: any) => {
+        const pages = Math.ceil(planets.count / 10);
+        const currentPage = +page;
+
+        return {
+          planets : planets.results,
+          count: planets.count,
+          pages,
+          currentPage
+        };
+      })
     );
+  }
+
+  getPlanetDetail(id: number) {
+    return this.planetsService.getDetail(id);
   }
 }
