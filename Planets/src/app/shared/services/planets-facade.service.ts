@@ -12,7 +12,7 @@ export class PlanetsFacadeService {
 
 
 
-  getPlanets(page: number = 1, searcStr: string = ' '): Observable<any> {
+  getPlanets(page: number = 1, searcStr: string = ''): Observable<any> {
     return this.planetsService.getMainObject(page, searcStr).pipe(
       map((planets: any) => {
         const pages = Math.ceil(planets.count / 10);

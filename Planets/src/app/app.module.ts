@@ -8,19 +8,23 @@ import { PlanetsService } from './shared/services/planets.service';
 import { PlanetDetailComponent } from './components/planet-detail/planet-detail.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PlanetCardComponent } from './components/planet-card/planet-card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    PlanetDetailComponent
+    PlanetDetailComponent,
+    PlanetCardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [PlanetsService],
   bootstrap: [AppComponent]

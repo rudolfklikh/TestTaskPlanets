@@ -1,0 +1,57 @@
+@import '../../styles/variables.scss';
+
+.detail__wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.detail__row {
+  width: 100%;
+  color: #ffffff;
+  font-family: $second-base-font;
+}
+.detail__img {
+  width: 100%;
+  border-radius: 50%;
+  transition: 0.7s all ease-in-out;
+
+  &:hover {
+    transform: rotateY(180deg);
+  }
+}
+.detail__img-wrapper {
+  padding: 0;
+  overflow: hidden;
+}
+.detail__img-info-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+
+  & li {
+    font-size: 20px;
+  }
+}
+.detail__spinner-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+}
+.detail__back-link-wrapper {
+  width: 100%;
+  text-align: center;
+}
+.detail__back-link {
+  font-size: 25px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.2s all ease-in;
+
+  &:hover {
+    color: #2bbbad;
+  }
+}

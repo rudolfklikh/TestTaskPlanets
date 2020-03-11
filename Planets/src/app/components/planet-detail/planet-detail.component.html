@@ -1,6 +1,33 @@
-
-<div>
-{{ planet.name | async }}
-</div>
-
-<a [routerLink]="['/']">Back</a>
+<ng-container *ngIf="planet | async; let planet; else spinnerContainer">
+  <div class="container detail__wrapper">
+    <div class="row detail__row">
+      <div class="col-lg-6 detail__img-wrapper col-12">
+        <img class="detail__img" src="../../../assets/{{ planet.name }}.png">
+      </div>
+      <div class="col-lg-6 detail__img-info-wrapper col-12">
+        <ul>
+          <li>Name: {{ planet.name }}</li>
+          <li>Climate: {{ planet.climate }}</li>
+          <li>Created: {{ planet.created | date }}</li>
+          <li>Edited: {{ planet.edited | date }} </li>
+          <li>Gravity: {{ planet.gravity }}</li>
+          <li>Orbital Period: {{ planet.orbital_period }}</li>
+          <li>Rotation Period: {{ planet.rotation_period }}</li>
+          <li>Population: {{ planet.population }}</li>
+          <li>Surface water: {{ planet.surface_water }}</li>
+          <li>Terrain: {{ planet.terrain }}</li>
+        </ul>
+        <div class="detail__back-link-wrapper">
+          <a class="detail__back-link"  [routerLink]="['/']">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #spinnerContainer>
+  <div class="detail__spinner-wrapper">
+    <div class="spinner-grow text-info" style="width: 5rem; height: 5rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>

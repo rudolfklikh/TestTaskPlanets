@@ -1,0 +1,20 @@
+<div class="card mb-4 planet-card__wrapper">
+  <div class="view overlay planet-card__img-wrapper">
+    <img class="card-img-top" [src]="imgLink || '../../../assets/Alderaan.png'" alt="Card image cap">
+    <a [routerLink]="['/planet', planet.url.split('/')[5] ]">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <div class="card-body">
+    <div class="planet-card__title-wrapper">
+      <h4 class="card-title planet-card__title">{{ planet.name }}</h4>
+      <span class="planet-card__date">{{planet.created | date }}</span>
+    </div>
+    <div class="planet-card__text-wrapper">
+      <span> Rotation Period: {{ planet.rotation_period }} </span>
+      <span> Orbital Period: {{ planet.orbital_period }} </span>
+      <span> Climate: {{ planet.climate }}  </span>
+    </div>
+    <button type="button" class="btn btn-primary btn-md" [routerLink]="['/planet', planet.url.split('/')[5] ]">Read more</button>
+  </div>
+</div>

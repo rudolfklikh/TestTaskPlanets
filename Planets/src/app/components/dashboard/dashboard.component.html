@@ -1,37 +1,74 @@
-<input [formControl]="searchStr" type="search">
-<a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ search: searchStr.value }'>Find PLANETS</a>
-<a class="page-link" (click)="ff()" [routerLink]="['/dashboard']" >CANCEL</a>
+<ng-container *ngIf="loadingIndicator; else spinnerContainer">
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="navbar navbar-dark default-color dashboard__nav col-lg-12">
+        <div class="col-lg-6 col-12 dashboard__logo-wrapper">
+          <a class="navbar-brand" [routerLink]="['/']" (click)="clearSearchStr()">
+            <img class="dashboard__logo" src="../../../assets/logo.png" alt="logo Star Wars">
+          </a>
+        </div>
+        <div class="col-lg-6 col-12 dashboard__search-wrapper">
+          <div class="md-form form-sm my-0 dashboard__input-wrapper">
+            <input class="form-control dashboard__search form-control-sm mr-sm-2 mb-0" [formControl]="searchStr" type="text"
+              placeholder="Search" aria-label="Search">
+              <a class="dashboard__clear-button" (click)="clearSearchStr()" [routerLink]="['/dashboard']">
+                <i class="fas fa-times"></i>
+              </a>
+          </div>
+          <a [@bounce] *ngIf='searchStr.value.length > 0' class="btn btn-outline-white btn-sm my-0 dashboard__search-button" [routerLink]="['/dashboard']"
+            [queryParams]='{ search: searchStr.value }'>Search</a>
+        </div>
+      </nav>
+    </div>
+  </div>
 
-<div *ngFor="let planet of planets">
-  {{ planet.name }}
-  <a [routerLink]="['/planet', planet.url.split('/')[5] ]" routerLinkActive="router-link-active">Hello</a>
-</div>
+  <div class="container dashboard__card-wrapper" [ngClass]="{'align-center': planetsCount === 0}">
+    <div class="row">
+      <div *ngFor="let planet of planets" class="col-lg-4 col-md-6 col-12">
+        <app-planet-card [planet]="planet"></app-planet-card>
+      </div>
 
-
-<nav aria-label="Page navigation example">
-  <ul class="pagination pagination-circle pg-red">
-    <li class="page-item">
-      <a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ page: 1 }' mdbWavesEffect>First</a>
-    </li>
-    <li *ngIf="currentPage !== 1" class="page-item">
-      <a class="page-link" [routerLink]="['/dashboard']"
-      [queryParams]='{ page: currentPage - 1  }'  aria-label="Previous" mdbWavesEffect>
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <li [ngClass]="{'active': page.num === currentPage}" class="page-item" *ngFor="let page of pageCount">
-      <a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ page: page.num }'
-        routerLinkActive="router-link-active" mdbWavesEffect queryParamsHandling="merge">{{ page.num }}</a>
-    </li>
-    <li *ngIf="currentPage !== pageCount.length">
-      <a [routerLink]="['/dashboard']" [queryParams]='{ page: currentPage + 1 }' class="page-link" aria-label="Next" mdbWavesEffect>
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-    <li class="page-item">
-      <a [routerLink]="['/dashboard']" [queryParams]='{ page: pageCount.length }' class="page-link" mdbWavesEffect>Last</a>
-    </li>
-  </ul>
-</nav>
+      <div *ngIf="planetsCount === 0">
+          <span class="dashboard__have-no-results">Sorry, but we cannot find such planets.</span>
+      </div>
+    </div>
+    <div class="row" *ngIf="pageCount.length > 0">
+      <nav aria-label="Page navigation example" class="col-12 dashboard__pagination">
+        <ul class="pagination dashboard__pagination-wrapper col-12">
+          <li class="page-item media__link" *ngIf="currentPage !== 1">
+            <a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ search: searchStr.value , page: 1 }' mdbWavesEffect>First</a>
+          </li>
+          <li class="page-item media__link" *ngIf="currentPage !== 1">
+            <a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ search: searchStr.value , page: currentPage - 1 }'
+              aria-label="Previous" mdbWavesEffect>
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li class="page-item" [ngClass]="{'active': page.num === currentPage}" *ngFor="let page of pageCount">
+            <a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ page: page.num }'
+              routerLinkActive="router-link-active" mdbWavesEffect queryParamsHandling="merge">{{ page.num }}</a>
+          </li>
+          <li class="page-item media__link" *ngIf="currentPage !== pageCount.length">
+            <a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{search: searchStr.value ,page: currentPage + 1  }' aria-label="Next"
+              mdbWavesEffect>
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+          <li class="page-item media__link" *ngIf="currentPage !== pageCount.length">
+            <a class="page-link" [routerLink]="['/dashboard']" [queryParams]='{ search: searchStr.value , page: pageCount.length }'
+              mdbWavesEffect>Last</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</ng-container>
+<ng-template #spinnerContainer>
+  <div class="dashboard__spinner-wrapper">
+    <div class="spinner-grow text-info" style="width: 5rem; height: 5rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>

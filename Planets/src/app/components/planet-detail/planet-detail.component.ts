@@ -9,7 +9,7 @@ import { PlanetsFacadeService } from 'src/app/shared/services/planets-facade.ser
   styleUrls: ['./planet-detail.component.scss']
 })
 export class PlanetDetailComponent implements OnInit {
-  planet: any;
+  public planet: any;
 
   constructor(private route: ActivatedRoute, private planetFacadeService: PlanetsFacadeService) { }
 
