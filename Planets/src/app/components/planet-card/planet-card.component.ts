@@ -13,7 +13,7 @@ export class PlanetCardComponent implements OnInit {
 
   @Input() set planet(planet: any) {
     this._planet = planet;
-    this.imgLink = `../../../assets/${planet.name}.png`;
+    this.imgLink = `/dist/Planets/assets/${planet.name}.png`;
   }
   constructor() { }
 

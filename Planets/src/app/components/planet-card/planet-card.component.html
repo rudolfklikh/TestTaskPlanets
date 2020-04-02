@@ -1,6 +1,6 @@
 <div class="card mb-4 planet-card__wrapper">
   <div class="view overlay planet-card__img-wrapper">
-    <img class="card-img-top" [src]="imgLink || '../../../assets/Alderaan.png'" alt="Card image cap">
+    <img class="card-img-top" src="/dist/Planets/assets/{{ planet.name }}.png" alt="Card image cap">
     <a [routerLink]="['/planet', planet.url.split('/')[5] ]">
       <div class="mask rgba-white-slight"></div>
     </a>
